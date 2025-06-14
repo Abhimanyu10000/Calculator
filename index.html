@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>iPhone Calculator</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f3f3f3;
+    }
+
+    .calculator {
+      background: #000;
+      border-radius: 20px;
+      padding: 20px;
+      width: 300px;
+      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .display {
+      background: #333;
+      color: #fff;
+      text-align: right;
+      font-size: 2rem;
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      overflow: hidden;
+    }
+
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    button {
+      font-size: 1.5rem;
+      padding: 20px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    button.operator {
+      background: #f1a33c;
+      color: #fff;
+    }
+
+    button.number {
+      background: #505050;
+      color: #fff;
+    }
+
+    button.clear {
+      background: #d9534f;
+      color: #fff;
+    }
+
+    button:active {
+      background: #ccc;
+    }
+
+    button.zero {
+      grid-column: span 2;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="calculator">
+    <div class="display" id="display">0</div>
+    <div class="buttons">
+      <button class="clear" onclick="clearDisplay()">C</button>
+      <button class="operator" onclick="inputValue('%')">%</button>
+      <button class="operator" onclick="deleteLast()">&#x232B;</button>
+      <button class="operator" onclick="inputValue('/')">&#247;</button>
+
+      <button class="number" onclick="inputValue('7')">7</button>
+      <button class="number" onclick="inputValue('8')">8</button>
+      <button class="number" onclick="inputValue('9')">9</button>
+      <button class="operator" onclick="inputValue('*')">&#215;</button>
+
+      <button class="number" onclick="inputValue('4')">4</button>
+      <button class="number" onclick="inputValue('5')">5</button>
+      <button class="number" onclick="inputValue('6')">6</button>
+      <button class="operator" onclick="inputValue('-')">&#8722;</button>
+
+      <button class="number" onclick="inputValue('1')">1</button>
+      <button class="number" onclick="inputValue('2')">2</button>
+      <button class="number" onclick="inputValue('3')">3</button>
+      <button class="operator" onclick="inputValue('+')">&#43;</button>
+
+      <button class="number zero" onclick="inputValue('0')">0</button>
+      <button class="number" onclick="inputValue('.')">.</button>
+      <button class="operator" onclick="calculate()">=</button>
+    </div>
+  </div>
+
+  <script>
+    const display = document.getElementById('display');
+
+    function inputValue(value) {
+      if (display.textContent === '0') {
+        display.textContent = value;
+      } else {
+        display.textContent += value;
+      }
+    }
+
+    function clearDisplay() {
+      display.textContent = '0';
+    }
+
+    function deleteLast() {
+      display.textContent = display.textContent.slice(0, -1) || '0';
+    }
+
+    function calculate() {
+      try {
+        display.textContent = eval(display.textContent);
+      } catch (error) {
+        display.textContent = 'Error';
+      }
+    }
+  </script>
+</body>
+
+</html>
